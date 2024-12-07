@@ -1,4 +1,4 @@
-# THIS IS Spblog
+# THIS IS Spblog V0.1
 # install
 ### 1 setup db
 download lampp for php **`7.4`**
