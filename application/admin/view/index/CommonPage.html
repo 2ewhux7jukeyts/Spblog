@@ -1,0 +1,163 @@
+{extend name="common/index2" /}
+
+{block name="mainpos"}
+
+<table class="layui-hide" id="{$tablename}" lay-filter="{$tablename}"></table>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        {volist name="btnlist" id="data"}
+
+            <button class="layui-btn layui-btn-sm" id="{$data.name}_dropdownButton">
+                {$data.name}
+                <i class="layui-icon layui-icon-down layui-font-12"></i>
+            </button>
+        {/volist}
+
+    </div>
+
+</script>
+
+<script type="text/html" id="#{$toolbarname ?? 'toolbarname' }">
+    <div class="layui-clear-space">
+
+        {volist name="funclist" id="data"}
+            {eq name="data.type" value="single" }
+                <a class="layui-btn layui-btn-xs" lay-event="edit">{$data.name}</a>
+            {/eq}
+            {eq name="data.type" value="arr" }
+                <a class="layui-btn layui-btn-xs" lay-event="more">
+                    {$data.name}
+                    <i class="layui-icon layui-icon-down"></i>
+                </a>
+            {/eq}
+        {/volist}
+    </div>
+</script>
+
+<script>
+    layui.use(['table', 'dropdown'], function(){
+        var table = layui.table;
+        var dropdown = layui.dropdown;
+
+        // 创建渲染实例
+        table.render({
+            elem: '#{$tablename}',
+            url: '{$loadapi}', // 此处为静态模拟数据，实际使用时需换成真实接口
+
+            toolbar: "#{$toolbarname ?? 'toolbarname' }",
+            defaultToolbar: ['filter', 'exports', 'print', { // 右上角工具图标
+                title: 'INFO',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips',
+                onClick: function(obj) { // 2.9.12+
+                    layer.alert('TABLE INFO');
+                }
+            }],
+
+
+            height: '{$tableheight ?? 320}', // 最大高度减去其他容器已占有的高度差
+            css: [ // 重设当前表格样式
+                '.layui-table-tool-temp{padding-right: 145px;}'
+            ].join(''),
+            cellMinWidth: 80,
+            // totalRow: true, // 开启合计行
+            page: true,
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                // 未自定义模板的普通列
+                {field:'uid', fixed: 'left', width:80, title: 'ID', sort: true},
+                // 模板 - 选择器写法
+                {field:'uname', width:80, title: 'user'},
+                // 模板 - 函数写法
+                {field:'passwd', width:60, title: 'passwd'},
+                // 模板 - 普通字符写法
+                {title: 'type',field:'type',  width:85},
+                {title: 'role',field:'role',  minWidth:200},
+                {fixed: 'right', title:'操作', width: 134, minWidth: 125, templet: '#toolDemo'}
+            ]],
+            done: function(){
+                console.log(this);
+                var id = this.id;
+
+                // 下拉按钮测试
+                dropdown.render({
+                    elem: '#dropdownButton', // 可绑定在任意元素中，此处以上述按钮为例
+                    data: [{
+                        id: 'update',
+                        title: '编辑'
+                    }],
+                    // 菜单被点击的事件
+                    click: function(obj){
+                        var checkStatus = table.checkStatus(id)
+                        var data = checkStatus.data; // 获取选中的数据
+                        switch(obj.id){
+                            case 'update':
+                                if(data.length !== 1) return layer.msg('请选择一行');
+                                console.log(data)
+                                layer.open({
+                                    title: '编辑 - '+data[0].uid,
+                                    type: 2,
+                                    area: ['80%','80%'],
+                                    content: '/admin/form/edituser?uid='+data[0].uid
+                                });
+                                break;
+                        }
+                    }
+                });
+
+                // 重载测试
+                dropdown.render({
+                    elem: '#reloadTest', // 可绑定在任意元素中，此处以上述按钮为例
+                    data: [{
+                        id: 'reload',
+                        title: '重载'
+                    }],
+                    // 菜单被点击的事件
+                    click: function(obj){
+                        switch(obj.id){
+                            case 'reload':
+                                // 重载 - 默认（参数重置）
+                                table.reload('test', {
+                                    where: {
+                                        abc: '123456',
+                                    },
+
+                                });
+                                break;
+                        }
+                        layer.msg('Fresh');
+                    }
+                });
+
+            },
+            error: function(res, msg){
+                console.log(res, msg)
+            }
+        });
+
+        // 触发单元格工具事件
+        table.on('tool(test)', function(obj){ // 双击 toolDouble
+            var data = obj.data; // 获得当前行数据
+            // console.log(obj)
+            if(obj.event === 'edit'){
+                console.log(data)
+                layer.open({
+                    title: '编辑 - id:'+ data.uid,
+                    type: 2,
+                    area: ['80%','80%'],
+                    content: '/admin/form/edituser?uid='+data.uid
+                });
+            }
+
+        });
+
+        // 触发表格复选框选择
+        table.on('checkbox(test)', function(obj){
+            console.log(obj)
+        });
+
+
+    });
+</script>
+{/block}
+
