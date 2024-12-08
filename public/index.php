@@ -9,9 +9,14 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+
 // [ 应用入口文件 ]
 namespace think;
 
+//tun off s to get controller
+if(isset($_GET["s"])){
+    unset($_GET["s"]);
+ }
 // 加载基础文件
 require __DIR__ . '/../thinkphp/base.php';
 
