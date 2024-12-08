@@ -1,11 +1,0 @@
---2024-10-29 13:04:27--  https://layui.dev/static/json/2/table/user.json?page=1
-Resolving layui.dev (layui.dev)... 2606:4700:3031::ac43:a7c5, 2606:4700:3030::6815:4313, 104.21.67.19, ...
-Connecting to layui.dev (layui.dev)|2606:4700:3031::ac43:a7c5|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 1626 (1.6K) [application/json]
-Saving to: ‘user.json?page=1’
-
-user.json?page=1                              0%[                                                                                            ]       0  --.-KB/s               user.json?page=1                            100%[===========================================================================================>]   1.59K  --.-KB/s    in 0s      
-
-2024-10-29 13:04:29 (27.3 MB/s) - ‘user.json?page=1’ saved [1626/1626]
-
