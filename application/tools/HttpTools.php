@@ -64,7 +64,7 @@ class HttpTools
      * @return string
      *  Get Get Val Safety
      */
-    public static function SafeStrGet(Request $request,string $name,string $default=""){
+    public static function SafeStrGet(Request $request,string $name,string $default=""):string{
         $inpu = $request->get($name) ?? $default;
         if(is_string($inpu)){
             if(trim($inpu) == ""){

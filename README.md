@@ -91,3 +91,18 @@ markdown editor
 [![](./Doc/image/5.png)](./Doc/image/5.png)
 public
 [![](./Doc/image/6.png)](./Doc/image/6.png)
+
+# NEW! 2024 03 25 add comment section 
+can view nologin
+[![](./Doc/image/7.png)](./Doc/image/7.png)
+
+post comment need login
+[![](./Doc/image/8.png)](./Doc/image/8.png)
+
+URD Reply comments in admin pannel
+[![](./Doc/image/9.png)](./Doc/image/9.png)
+
+update install.php
+
+# Plan
+review and rebuild code 

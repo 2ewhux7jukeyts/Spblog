@@ -66,5 +66,14 @@ class Index extends PrivCtl
         ]);
     }
 
+    public function commonts()
+    {
+        return $this->dorend("commonts",[
+            "dashtitle"=>"commonts",
+            "webtitle"=>"testadmin",
+            "dashinfo"=>"commonts view",
+        ]);
+    }
 
+    
 }

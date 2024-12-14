@@ -16,6 +16,13 @@ class WordDict
     public static string $title = "title";
     public static string $c_time = "c_time";
     public static string $l_time = "l_time";
+
+    public static string $pcid = "pcid";
+    public static string $comid = "comid";
+    public static string $content = "content";
+    
+
+
     public static string $BannerAdmin = '
 ╔═╗┌─┐╔╗ ┬  ┌─┐┌─┐
 ╚═╗├─┘╠╩╗│  │ ││ ┬

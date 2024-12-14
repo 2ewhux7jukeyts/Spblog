@@ -18,7 +18,7 @@ class BaseModel extends Model
      * O
      * @param int $size
      * @param int $index
-     * @param array $field
+     * @param array $field exclude
      * @return array
      * List data Of this Table in Layui Format
      */

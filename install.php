@@ -143,6 +143,22 @@ function ctable($dbh,$db){
     EOF;
     $sth = $dbh->prepare($content);
     $sth-> execute();
+
+    $comments = <<<EOF
+        CREATE TABLE `commont` (
+            `comid` varchar(100) DEFAULT NULL,
+            `uid` varchar(100) DEFAULT NULL,
+            `pcid` varchar(100) DEFAULT NULL,
+            `cid` varchar(100) DEFAULT NULL,
+            `content` varchar(255) DEFAULT NULL,
+            `c_time` timestamp NULL DEFAULT NULL,
+            `l_time` timestamp NULL DEFAULT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+    EOF;
+    $sth = $dbh->prepare($comments);
+    $sth-> execute();
+
     tables($dbh,$db);
 }
 

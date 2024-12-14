@@ -27,6 +27,9 @@ class Menu
                     ]
                 ],
             ]
+
+            
+
         ];
     }
 
@@ -78,7 +81,12 @@ class Menu
                         "name"=>"Content",
                         "href"=>"/admin/index/content/",
                         "arr"=>"",
-                    ]
+                    ],
+                    [
+                        "name"=>"commonts",
+                        "href"=>"/admin/index/commonts/",
+                        "arr"=>"",
+                    ],
                 ],
             ],
         ];

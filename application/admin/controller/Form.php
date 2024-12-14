@@ -167,4 +167,67 @@ class Form extends PrivCtl
         $ct = Arrtools::getdef($res,0,[]);
         return Arrtools::getdef($ct,"content","# NO ITEM");
     }
+
+
+
+
+    public function editcomid(Request $request)
+    {
+        $comid = HttpTools::SafeStrGet($request,WordDict::$comid);
+        return $this->form("commontsform",
+            [
+                "list"=>[
+                    [
+                        "lable"=>WordDict::$content,
+                        "name"=>WordDict::$content,
+                        "type"=>"textarea"
+                    ]
+            
+                ],
+                "formid"=>EncryptTool::gen_uuid(),
+                "api"=>"/admin/Commctl/U",
+                "obj"=>base64_encode(
+                    json_encode(
+                        [
+                            "comid"=>$comid,
+                            "pcid"=>"",
+                            "cid"=>"",
+                        ]
+                    )
+                )
+            ]
+        );
+    }
+
+
+    public function Recomid(Request $request)
+    {
+        $comid = HttpTools::SafeStrGet($request,WordDict::$comid);
+        $cid = HttpTools::SafeStrGet($request,WordDict::$cid);
+        return $this->form("commontsform",
+            [
+                "list"=>[
+                    [
+                        "lable"=>WordDict::$content,
+                        "name"=>WordDict::$content,
+                        "type"=>"textarea"
+                    ]
+            
+                ],
+                "formid"=>EncryptTool::gen_uuid(),
+                "api"=>"/admin/Commctl/Re",
+                "obj"=>base64_encode(
+                    json_encode(
+                        [
+                            "cid"=>$cid,
+                            "pcid"=>$comid,
+                        ]
+                    )
+                )
+            ]
+        );
+    }
+
+
+
 }

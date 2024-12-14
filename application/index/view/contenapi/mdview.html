@@ -17,6 +17,9 @@
 
     <script src="/examples/editormd.js"></script>
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <link href="/static/css/layui.css" rel="stylesheet">
+    <script src="/static/layui.js"></script>
+    <script src="/static/jquery.js"></script>
     <style>
         .editormd-html-preview {
             width: 90%;
@@ -32,6 +35,7 @@
     <p>user:{$uid}</p>
     <p>create:{$c_time}</p>
     <p>update:{$l_time}</p>
+    <button type="button" class="layui-btn layui-bg-orange" onclick="openComments('{$cid}')">Comments</button>
 </div>
 <hr>
 <div id="test-editormd-view">
@@ -64,6 +68,16 @@
             });
         });
     });
+
+
+    function openComments(cid){
+        layer.open({
+                    title: 'Show',
+                    type: 2,
+                    area: ['90%','80%'],
+                    content: '/index/form/Commonts?cid='+cid
+                });
+    }
 </script>
 </body>
 </html>

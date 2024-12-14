@@ -1,0 +1,217 @@
+{extend name="common/index2" /}
+
+{block name="mainpos"}
+<script src="/admin/Commctl/tablecol"></script>
+
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" id="dropdownButton">
+            CURD
+            <i class="layui-icon layui-icon-down layui-font-12"></i>
+        </button>
+
+        <button class="layui-btn layui-btn-sm layui-bg-blue" id="reloadTest">
+            ADDOND
+            <i class="layui-icon layui-icon-down layui-font-12"></i>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="toolDemo">
+    <div class="layui-clear-space">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">Edit</a>
+        <a class="layui-btn layui-btn-xs" lay-event="Reply">Reply</a>
+        <a class="layui-btn layui-btn-xs" lay-event="Del">Del</a>
+    </div>
+</script>
+<script>
+    layui.use(['table', 'dropdown'], function(){
+        var table = layui.table;
+        var dropdown = layui.dropdown;
+
+        // 创建渲染实例
+        table.render({
+            elem: '#test',
+            url: '/admin/commctl/L_R', // 此处为静态模拟数据，实际使用时需换成真实接口
+
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', { // 右上角工具图标
+                title: 'INFO',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips',
+                onClick: function(obj) { // 2.9.12+
+                    layer.alert('TABLE INFO');
+                }
+            }],
+
+
+            height: '320', // 最大高度减去其他容器已占有的高度差
+            css: [ // 重设当前表格样式
+                '.layui-table-tool-temp{padding-right: 145px;}'
+            ].join(''),
+            cellMinWidth: 80,
+            // totalRow: true, // 开启合计行
+            page: true,
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+
+            ].concat(coleee).concat([{fixed: 'right', title:' Opts', width: 134, minWidth: 125, templet: '#toolDemo'}])],
+            done: function(){
+                console.log(this);
+                var id = this.id;
+
+                // 下拉按钮测试
+                dropdown.render({
+                    elem: '#dropdownButton', // 可绑定在任意元素中，此处以上述按钮为例
+                    data: [
+                        {
+                        id: 'update',
+                        title: 'Edit'
+                        },
+                        {
+                        id: 'Reply',
+                        title: 'Reply'
+                        }
+                    ],
+                    // Event Menu click
+                    click: function(obj){
+                        var checkStatus = table.checkStatus(id)
+                        var data = checkStatus.data; // Get DAta Select
+                        switch(obj.id){
+                            case 'update':
+                                if(data.length !== 1) return layer.msg('SELECT ONE ROW');
+                                console.log(data)
+                                layer.open({
+                                    title: 'Edit - '+data[0].uid,
+                                    type: 2,
+                                    area: ['80%','80%'],
+                                    content: '/admin/form/editcomid?comid='+data[0].comid
+                                });
+                                break;
+                            case 'Reply':
+                                if(data.length !== 1) return layer.msg('SELECT ONE ROW');
+                                console.log(data)
+                                layer.open({
+                                    title: 'Reply - '+data[0].uid,
+                                    type: 2,
+                                    area: ['80%','80%'],
+                                    content: '/admin/form/Recomid?comid='+data.comid+'&cid='+data.cid
+                                });
+                                break;
+                        }
+                    }
+                });
+
+                // RELOAD测试
+                dropdown.render({
+                    elem: '#reloadTest', // 可绑定在任意元素中，此处以上述按钮为例
+                    data: [{
+                        id: 'reload',
+                        title: 'RELOAD'
+                    }],
+                    // Event Menu click
+                    click: function(obj){
+                        switch(obj.id){
+                            case 'reload':
+                                // RELOAD - 默认（参数重置）
+                                table.reload('test', {
+                                    where: {
+                                        abc: '123456',
+                                    },
+
+                                });
+                                break;
+                        }
+                        layer.msg('Fresh');
+                    }
+                });
+
+
+            },
+            error: function(res, msg){
+                console.log(res, msg)
+            }
+        });
+
+        // 触发单元格工具事件
+        table.on('tool(test)', function(obj){ // 双击 toolDouble
+            var data = obj.data; // 获得当前行数据
+            // console.log(obj)
+            if(obj.event === 'edit'){
+                console.log(data)
+                layer.open({
+                    title: 'Edit - comid:'+ data.comid,
+                    type: 2,
+                    area: ['80%','80%'],
+                    content: '/admin/form/editcomid?comid='+data.comid
+                });
+            }
+
+            if(obj.event === 'Reply'){
+                console.log(data)
+                layer.open({
+                    title: 'Reply - comid:'+ data.comid+" Cid:"+data.cid,
+                    type: 2,
+                    area: ['80%','80%'],
+                    content: '/admin/form/Recomid?comid='+data.comid+'&cid='+data.cid
+                });
+            }
+
+            if(obj.event === 'Del'){
+                layer.confirm('DELETE? [comid: '+ data.comid +']  ', function(index){
+                    obj.del(); // DEL DOM TR
+                    // layer.close(index);
+                    delpage(data.comid)
+                });
+            }
+
+            // else if(obj.event === 'more'){
+            //     // 更多 - 下拉菜单
+            //     dropdown.render({
+            //         elem: this, // 触发事件的 DOM 对象
+            //         show: true, // 外部事件触发即显示
+            //         data: [{
+            //             title: '查看',
+            //             id: 'detail'
+            //         }],
+            //         click: function(menudata){
+            //             if(menudata.id === 'detail'){
+            //                 layer.msg('查看more，当前 USER:'+ data.uname);
+            //             }
+            //         },
+            //         align: 'right', // 右对齐弹出
+            //         style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);' // 设置额外样式
+            //     })
+            // }
+        });
+
+        // 触发表格复选框选择
+        table.on('checkbox(test)', function(obj){
+            console.log(obj)
+        });
+
+
+    });
+
+    function delpage(name) {
+        $.ajax({
+            url:"/admin/Commctl/D",
+            data:{"comid":name},
+            type:"post",
+            success:function(data){
+                console.log(data);
+                layer.alert(JSON.stringify(data), {
+                    title: data
+                });
+            },
+            error:function(data){
+                layer.alert(JSON.stringify(data), {
+                    title: data
+                });
+            }
+        });
+    }
+</script>
+{/block}
+
