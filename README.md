@@ -106,6 +106,7 @@ update install.php
 
 # Plan
 review and rebuild code 
+rewrite frontend webpage using vue3 
 
 # NEWS 
 20 12 2024 move index page to viewc , seperate view render and api in to diffrent module
