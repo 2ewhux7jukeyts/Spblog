@@ -106,3 +106,6 @@ update install.php
 
 # Plan
 review and rebuild code 
+
+# NEWS 
+20 12 2024 move index page to viewc , seperate view render and api in to diffrent module

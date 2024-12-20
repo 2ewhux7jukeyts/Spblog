@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML Preview(markdown to html) - Editor.md examples</title>
+    <link rel="stylesheet" href="/examples/css/style.css" />
+    <link rel="stylesheet" href="/examples/css/editormd.preview.css" />
+    <script src="/examples/js/jquery.min.js"></script>
+    <script src="/examples/lib/marked.min.js"></script>
+    <script src="/examples/lib/prettify.min.js"></script>
+
+    <script src="/examples/lib/raphael.min.js"></script>
+    <script src="/examples/lib/underscore.min.js"></script>
+    <script src="/examples/lib/sequence-diagram.min.js"></script>
+    <script src="/examples/lib/flowchart.min.js"></script>
+    <script src="/examples/lib/jquery.flowchart.min.js"></script>
+
+    <script src="/examples/editormd.js"></script>
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <link href="/static/css/layui.css" rel="stylesheet">
+    <script src="/static/layui.js"></script>
+    <script src="/static/jquery.js"></script>
+    <style>
+        .editormd-html-preview {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{$title}</h1>
+<hr>
+<div>
+    <p>user:{$uid}</p>
+    <p>create:{$c_time}</p>
+    <p>update:{$l_time}</p>
+    <button type="button" class="layui-btn layui-bg-orange" onclick="openComments('{$cid}')">Comments</button>
+</div>
+<hr>
+<div id="test-editormd-view">
+    <textarea style="display:none;" name="test-editormd-markdown-doc">###Hello world!</textarea>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function() {
+        var testEditormdView, testEditormdView2;
+
+        $.get("/index/contenapi/fetchmd?cid={$cid}", function(markdown) {
+
+            testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                //toc             : false,
+                tocm            : true,    // Using [TOCM]
+                //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+                //gfm             : false,
+                //tocDropdown     : true,
+                // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+        });
+    });
+
+
+    function openComments(cid){
+        layer.open({
+                    title: 'Show',
+                    type: 2,
+                    area: ['90%','80%'],
+                    content: '/viewc/indexform/Commonts?cid='+cid
+                });
+    }
+</script>
+</body>
+</html>

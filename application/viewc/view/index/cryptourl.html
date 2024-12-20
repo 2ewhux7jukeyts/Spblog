@@ -1,0 +1,59 @@
+{extend name="common/index2" /}
+
+
+{block name="mainpos"}
+
+<div class="am-u-sm-12">
+    <div class="layui-form">
+        URL-DE<br>
+        <input type="text" name="cypher" id="cypher" placeholder="cypher" class="layui-input"><br>
+        <hr class="ws-space-16">
+        <textarea name="text" id="cl" placeholder="text" class="layui-textarea"></textarea><br>
+        <input type="submit" onclick="deaes1()" class="layui-btn layui-bg-blue">
+    </div>
+    <br><br><br>
+    <div class="layui-form">
+        URL-en<br>
+        <input type="text" name="cypher" id="cypheren" placeholder="cypher" class="layui-input"><br>
+        <hr class="ws-space-16">
+        <textarea name="text" id="clen" placeholder="text" class="layui-textarea"></textarea><br>
+        <input type="submit" onclick="deaes2()" class="layui-btn layui-bg-red">
+    </div>
+</div>
+<script>
+    function deaes1() {
+        $.ajax({
+            url:"/index/cryptor/Urlde",
+            data:{"cypher":$('#cypher').val()},
+            type:"post",
+            success:function(data){
+                $('#cl').val(data.data);
+            },
+            error:function(data){
+                layer.alert(JSON.stringify(data), {
+                    title: data
+                });
+            }
+        });
+        return false;
+    }
+
+    function deaes2() {
+        $.ajax({
+            url:"/index/cryptor/Urlen",
+            data:{"cypher":$('#cypheren').val()},
+            type:"post",
+            success:function(data){
+                $('#clen').val(data.data);
+            },
+            error:function(data){
+                layer.alert(JSON.stringify(data), {
+                    title: data
+                });
+            }
+        });
+        return false;
+    }
+</script>
+
+{/block}

@@ -1,0 +1,158 @@
+<html>
+
+
+{include file="common/head" /}
+  <body>
+    <script src="{$col}"></script>
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+    
+    <!-- Top -->
+     <!--
+        api
+        col
+        p_toolbarDemo
+        [
+            [
+                "type"=>"dropdown,single,single_row,dropdown_row",
+                "name"=>"test",
+                "event"=>"event",
+                "id"=>"id",
+                "funcs"=>["","",""],
+                "data"=>[""]
+            ]
+        ]
+    
+     -->
+     
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            {volist name="p_toolbarDemo" id="toobar_vo"}
+                {eq name="toobar_vo.type" value="single"}
+                    <button class="layui-btn layui-btn-sm" lay-event="{$toobar_vo.event}">{$toobar_vo.name}</button>
+                {/eq}
+
+                {eq name="toobar_vo.type" value="dropdown"}
+                    <button class="layui-btn layui-btn-sm" id="{$toobar_vo.id}">
+                        {$toobar_vo.name} 
+                        <i class="layui-icon layui-icon-down layui-font-12"></i>
+                    </button>
+                {/eq}
+            {/volist}
+        </div>
+    </script>
+    <!-- Table row tool -->
+    <script type="text/html" id="toolDemo">
+        <div class="layui-clear-space">
+            {volist name="p_toolbarDemo" id="toobar_vo"}
+                {eq name="toobar_vo.type" value="single_row"}
+                    <a class="layui-btn layui-btn-xs" lay-event="{$toobar_vo.event}">{$toobar_vo.name}</a>
+                {/eq}
+
+                {eq name="toobar_vo.type" value="dropdown_row"}
+                    <a class="layui-btn layui-btn-xs" lay-event="{$toobar_vo.id}">
+                        {$toobar_vo.name}  
+                        <i class="layui-icon layui-icon-down"></i>
+                    </a>
+                {/eq}
+            {/volist}
+        </div>
+    </script> 
+
+    <script>
+      function load(api){
+        layui.use(['table', 'dropdown'], function(){
+          var table = layui.table;
+          var dropdown = layui.dropdown;
+            
+          // 创建渲染实例
+          table.render({
+              elem: '#test',
+              url: api, // 此处为静态模拟数据，实际使用时需换成真实接口
+              // Toolbar Top
+              toolbar: '#toolbarDemo',
+              defaultToolbar: ['filter', 'exports', 'print', { // 右上角工具图标
+                                title: '提示',
+                                layEvent: 'LAYTABLE_TIPS',
+                                icon: 'layui-icon-tips',
+                                onClick: function(obj) { // 2.9.12+
+                                    layer.alert('自定义工具栏图标按钮');
+                                }
+                                }
+                            ],
+              height: '320', // 最大高度减去其他容器已占有的高度差
+              css: [ // 重设当前表格样式
+                    '.layui-table-tool-temp{padding-right: 145px;}'
+                    ].join(''),
+              cellMinWidth: 80,
+              page: true,
+              cols: [[
+                  {type: 'checkbox', fixed: 'left'},
+                    ].concat(coleee)]
+              ,done: function(){
+                var id = this.id;
+                //rendJs toolbarDemo dropdump
+                {volist name="p_toolbarDemo" id="toobar_vo"}
+                    {eq name="toobar_vo.type" value="dropdown"}
+                        dropdown.render({
+                                elem: '#{$toobar_vo.id}', // 可绑定在任意元素中，此处以上述按钮为例
+
+                                // [{
+                                // id: 'reload',
+                                // title: '重载'
+                                // }]
+
+                                data: <?php echo $toobar_vo["data"]; ?>,
+                                // 菜单被点击的事件
+                                click: function(obj){
+                                    {volist name="toobar_vo.funcs" id="toofuncs"}
+                                        <?php echo $toofuncs; ?>
+                                    {/volist}
+                                }
+                            });
+                    {/eq}
+                {/volist}
+
+
+                //rendJs toolbarDemo single
+                table.on('toolbar(test)', function(obj){
+                    var id = obj.config.id;
+                    var checkStatus = table.checkStatus(id);
+                    var othis = lay(this);
+                    {volist name="p_toolbarDemo" id="toobar_vo"}
+                        {eq name="toobar_vo.type" value="single"}
+                            {volist name="toobar_vo.funcs" id="toofuncs"}
+                                    <?php echo $toofuncs; ?>
+                            {/volist}
+                        {/eq}
+                    {/volist}
+                });
+
+
+              },
+              error: function(res, msg){
+                  console.log(res, msg)
+              }
+          });
+
+                  
+  
+          // 触发表格复选框选择
+          table.on('checkbox(test)', function(obj){
+              console.log(obj)
+          });
+  
+  
+      });
+      }
+
+    load("{$api}")
+  
+      
+  </script>
+  </body>
+</html>
+
+
+
+

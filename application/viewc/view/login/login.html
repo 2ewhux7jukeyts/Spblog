@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {include file="common/res" /}
+    <style>
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+        .header p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="header">-->
+<!--    <div class="am-g">-->
+<!--        <h1>Login</h1>-->
+<!--        <p>SEC asset Manager<br/>Subdomain Icp fofa Zoomeye sodan ....</p>-->
+<!--    </div>-->
+<!--    <hr />-->
+<!--</div>-->
+<br><br><br><br><br>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>LOGIN</h3>
+        <br>
+        <br>
+
+        <form method="post" class="am-form">
+            <label for="uname">name:</label>
+            <input type="text" name="" id="uname" value="">
+            <br>
+            <label for="password">passwd:</label>
+            <input type="password" name="" id="password" value="">
+            <br>
+            <br />
+
+        </form>
+        <div class="am-cf">
+            <input type="submit" name="" value="Login" class="am-btn am-btn-primary am-btn-sm am-fl" onclick="doclick()">
+        </div>
+        <hr>
+    </div>
+</div>
+<script>
+    function formPost(url,d1ata,ok,err) {
+        $.ajax({
+            url:url,
+            async:false,
+            data:d1ata,
+            type:"post",
+            success:function (data) {
+                ok(data)
+            },
+            error:function (data) {
+                err(data)
+            }
+        });
+    }
+
+    function doclick() {
+        formPost(
+            "/index/login/dologin",
+            {"uname":$("#uname").val(),"passwd":$("#password").val()}
+            ,function (data) {
+                console.log(data)
+                if(data.status === true){
+                    window.location = "/admin"
+                }else {
+                    alert("error")
+                }
+
+            },
+            function (data) {
+                alert("ERROR")
+            }
+        )
+    }
+</script>
+</body>
+</html>

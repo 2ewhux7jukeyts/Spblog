@@ -12,7 +12,7 @@ class Menu
         return [
             [
                 "name"=>"index",
-                "href"=>"/",
+                "href"=>"/viewc/",
                 "arr"=>"",
                 "icotoptag"=>"am-icon-home"
             ],
@@ -22,7 +22,7 @@ class Menu
                 "arr"=>[
                     [
                         "name"=>"blogs",
-                        "href"=>"/index/index/content/",
+                        "href"=>"/viewc/index/content/",
                         "arr"=>"",
                     ]
                 ],
