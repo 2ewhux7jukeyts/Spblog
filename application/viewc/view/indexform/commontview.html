@@ -125,6 +125,7 @@
                     var id = obj.config.id;
                     var checkStatus = table.checkStatus(id);
                     var othis = lay(this);
+                    var data = obj.data; // 获得当前行数据
                     {volist name="p_toolbarDemo" id="toobar_vo"}
                         {eq name="toobar_vo.type" value="single"}
                             {volist name="toobar_vo.funcs" id="toofuncs"}
@@ -139,6 +140,7 @@
                     var id = obj.config.id;
                     var checkStatus = table.checkStatus(id);
                     var othis = lay(this);
+                    var data = obj.data; // 获得当前行数据
                     {volist name="p_toolbarDemo" id="toobar_vo"}
                         {eq name="toobar_vo.type" value="single_row"}
                             {volist name="toobar_vo.funcs" id="toofuncs"}

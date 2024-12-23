@@ -40,138 +40,66 @@ class Indexform extends Controller
                         "event"=>"",
                         "id"=>"addon",
                         "funcs"=>[
-                            "load('/index/commctl/F_R?cid=$cid')"
+                            Layui::reload($cid)
                             ,Layui::layeropen2(
                                 "obj.id==='add'",
                                 "/index/form/addcomment?cid=$cid",
                                 "add comment"
                             ),""],
-                        "data"=>json_encode(
+                        "data"=>json_encode([
                             [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
+                                "id"=>'reload',
+                                "title"=> 'Reload'
+                            ],
+                            [
+                                "id"=>'add',
+                                "title"=> 'ADD'
                             ]
-                        )
+                        ])
                     ],
                     [
                         "type"=>"single",
                         "name"=>"top",
-                        "event"=>"",
+                        "event"=>"top",
                         "id"=>"top",
-                        "funcs"=>[
-                            "load('/index/commctl/F_R?cid=$cid')"
-                            ,Layui::layeropen2(
-                                "obj.id==='add'",
-                                "/index/form/addcomment?cid=$cid",
-                                "add comment"
-                            ),""],
-                        "data"=>json_encode(
-                            [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
-                            ]
-                        )
+                        "funcs"=>[Layui::top($cid)],
+                        "data"=>json_encode([])
                     ],
                     [
                         "type"=>"single",
                         "name"=>"back",
-                        "event"=>"",
+                        "event"=>"back",
                         "id"=>"back",
-                        "funcs"=>[
-                            "load('/index/commctl/F_R?cid=$cid')"
-                            ,Layui::layeropen2(
-                                "obj.id==='add'",
-                                "/index/form/addcomment?cid=$cid",
-                                "add comment"
-                            ),""],
-                        "data"=>json_encode(
-                            [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
-                            ]
-                        )
+                        "funcs"=>[Layui::backview($cid)],
+                        "data"=>json_encode([])
                     ],
                     [
                         "type"=>"single_row",
                         "name"=>"view",
                         "event"=>"view",
                         "id"=>"view",
-                        "funcs"=>[
-                            "load('/index/commctl/F_R?cid=$cid&comid='+obj.data.comid)"
-                            ,""],
-                        "data"=>json_encode(
-                            [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
-                            ]
-                        )
+                        "funcs"=>[Layui::view($cid)],
+                        "data"=>json_encode([])
                     ]
-
                     ,
                     [
                         "type"=>"single_row",
                         "name"=>"reply",
                         "event"=>"reply",
-                        "id"=>"view",
-                        "funcs"=>[""],
-                        "data"=>json_encode(
-                            [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
-                            ]
-                        )
+                        "id"=>"reply",
+                        "funcs"=>[Layui::rep()],
+                        "data"=>json_encode([])
                     ]
-
                     ,
                     [
                         "type"=>"single_row",
                         "name"=>"del",
                         "event"=>"del",
-                        "id"=>"view",
-                        "funcs"=>[""],
-                        "data"=>json_encode(
-                            [
-                                [
-                                    "id"=>'reload',
-                                    "title"=> 'Reload'
-                                ],
-                                [
-                                    "id"=>'add',
-                                    "title"=> 'ADD'
-                                ]
-                            ]
-                        )
+                        "id"=>"del",
+                        "funcs"=>[Layui::del()],
+                        "data"=>json_encode([])
                     ]
+                    
                     
                 ]
             ]
