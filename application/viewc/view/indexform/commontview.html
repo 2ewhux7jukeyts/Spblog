@@ -3,6 +3,11 @@
 
 {include file="common/head" /}
   <body>
+
+    <script>
+        {$preloadin ?? ""}
+    </script>
+
     <script src="{$col}"></script>
 
     <table class="layui-hide" id="test" lay-filter="test"></table>
@@ -46,7 +51,7 @@
         <div class="layui-clear-space">
             {volist name="p_toolbarDemo" id="toobar_vo"}
                 {eq name="toobar_vo.type" value="single_row"}
-                    <a class="layui-btn layui-btn-xs" lay-event="{$toobar_vo.event}">{$toobar_vo.name}</a>
+                    <a class="layui-btn layui-btn-xs" style="margin-bottom: 1em;" lay-event="{$toobar_vo.event}">{$toobar_vo.name}</a>
                 {/eq}
 
                 {eq name="toobar_vo.type" value="dropdown_row"}
@@ -55,6 +60,7 @@
                         <i class="layui-icon layui-icon-down"></i>
                     </a>
                 {/eq}
+                
             {/volist}
         </div>
     </script> 
@@ -114,7 +120,7 @@
                 {/volist}
 
 
-                //rendJs toolbarDemo single
+                //rendJs toolbarDemo single role
                 table.on('toolbar(test)', function(obj){
                     var id = obj.config.id;
                     var checkStatus = table.checkStatus(id);
@@ -123,6 +129,20 @@
                         {eq name="toobar_vo.type" value="single"}
                             {volist name="toobar_vo.funcs" id="toofuncs"}
                                     <?php echo $toofuncs; ?>
+                            {/volist}
+                        {/eq}
+                    {/volist}
+                });
+
+                //rendJs toolbarDemo single role
+                table.on('tool(test)', function(obj){
+                    var id = obj.config.id;
+                    var checkStatus = table.checkStatus(id);
+                    var othis = lay(this);
+                    {volist name="p_toolbarDemo" id="toobar_vo"}
+                        {eq name="toobar_vo.type" value="single_row"}
+                            {volist name="toobar_vo.funcs" id="toofuncs"}
+                                    <?php echo $toofuncs;echo "\n\n\n"; ?>
                             {/volist}
                         {/eq}
                     {/volist}

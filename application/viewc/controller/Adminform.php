@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\viewc\controller;
 
 
 
@@ -10,7 +10,7 @@ use app\tools\EncryptTool;
 use app\tools\HttpTools;
 use think\Request;
 
-class Form extends PrivCtl
+class Adminform extends PrivCtl
 {
 
     private function form($tpl,$form)

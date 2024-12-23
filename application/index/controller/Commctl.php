@@ -14,26 +14,16 @@ use think\Request;
 use think\response\Json;
 
 class Commctl extends AuthCtl{
-    
-
-    public function L_R(Request $request){
-        return Json::create((new \app\Common\model\content())->queryfieldtablejoin(
-            ["commont.uid","user.uname","commont.cid","commont.pcid","commont.content","commont.comid","commont.c_time","commont.l_time"],
-            "commont",
-            ["uid"],
-            "user",
-            "where commont.uid=\"".urlencode($this->uid).'"',
-            HttpTools::intget($request,"page"),
-            HttpTools::intget($request,"limit",10) % 100));
-    }
 
     public function F_R(Request $request){
+        $cid = urlencode(HttpTools::SafeStrGet($request,WordDict::$cid));
+        $comid = urlencode(HttpTools::SafeStrGet($request,WordDict::$comid));
         return Json::create((new \app\Common\model\content())->queryfieldtablejoin(
             ["commont.uid","user.uname","commont.cid","commont.pcid","commont.content","commont.comid","commont.c_time","commont.l_time"],
             "commont",
             ["uid"],
             "user",
-            "where commont.cid=\"".urlencode(HttpTools::SafeStrGet($request,WordDict::$cid)).'"',
+            "where commont.cid='$cid' and commont.pcid='$comid'",
             HttpTools::intget($request,"page"),
             HttpTools::intget($request,"limit",10) % 100));
     }
@@ -171,9 +161,10 @@ class Commctl extends AuthCtl{
 
     public function tablecol(){
         $cop = (new \app\Common\model\commont())->tabclum(
-            ["cid","uid","pcid","c_time"]
+            ["cid","uid","pcid","c_time","replymeId"]
         );
         $cop[] = ["field"=> "uname", "title"=> "UserName"];
+        $cop[] = ["fixed"=> 'right', "title"=>'操作', "width"=> 134, "minWidth"=> 125, "templet"=> '#toolDemo'];
         return $this->_tablecol(
             $cop
             ,"coleee"

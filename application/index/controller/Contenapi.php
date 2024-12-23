@@ -27,7 +27,8 @@ class Contenapi extends ApiCtl
     }
 
     public function tablecol(){
-        $cop = (new \app\Common\model\content())->tabclum(["content","permID","ipaddr","uid","cid","template"]);
+        $cop = (new \app\Common\model\content())->tabclum(["content","permID","ipaddr","uid","cid","template","replymeId"]);
+        
         return $this->_tablecol(
             $cop
             ,"coleee"

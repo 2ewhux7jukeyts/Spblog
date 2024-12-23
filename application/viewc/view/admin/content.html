@@ -88,7 +88,7 @@
                                     title: 'ADD',
                                     type: 2,
                                     area: ['80%','80%'],
-                                    content: '/admin/form/addpage'
+                                    content: '/viewc/adminform/addpage'
                                 });
                                 break;
                             case 'update':
@@ -98,7 +98,7 @@
                                     title: 'EDIT - '+data[0].uid,
                                     type: 2,
                                     area: ['80%','80%'],
-                                    content: '/admin/form/editpage?cid='+data[0].cid
+                                    content: '/viewc/adminform/editpage?cid='+data[0].cid
                                 });
                                 break;
                             case 'delete':
@@ -156,7 +156,7 @@
                     title: 'EDIT - id:'+ data.uid,
                     type: 2,
                     area: ['80%','80%'],
-                    content: '/admin/form/editpage?cid='+data.cid
+                    content: '/viewc/adminform/editpage?cid='+data.cid
                 });
             } else if(obj.event === 'more'){
                 // MORE - 下拉菜单
@@ -176,7 +176,7 @@
                                 title: 'view - cid:'+ data.cid,
                                 type: 2,
                                 area: ['80%','80%'],
-                                content: '/admin/form/viewpage?cid='+data.cid
+                                content: '/viewc/adminform/viewpage?cid='+data.cid
                             });
                         } else if(menudata.id === 'del'){
                             layer.confirm('DELETE? [cid: '+ data.cid +']  ', function(index){

@@ -58,7 +58,7 @@ class Menu
         return [
             [
                 "name"=>"index",
-                "href"=>"/admin",
+                "href"=>"/viewc/admin",
                 "arr"=>"",
                 "icotoptag"=>"am-icon-home"
             ],
@@ -68,7 +68,7 @@ class Menu
                 "arr"=>[
                     [
                         "name"=>"userManager",
-                        "href"=>"/admin/index/user/",
+                        "href"=>"/viewc/admin/user/",
                         "arr"=>"",
                     ]
                 ],
@@ -79,12 +79,12 @@ class Menu
                 "arr"=>[
                     [
                         "name"=>"Content",
-                        "href"=>"/admin/index/content/",
+                        "href"=>"/viewc/admin/content/",
                         "arr"=>"",
                     ],
                     [
                         "name"=>"commonts",
-                        "href"=>"/admin/index/commonts/",
+                        "href"=>"/viewc/admin/commonts/",
                         "arr"=>"",
                     ],
                 ],
