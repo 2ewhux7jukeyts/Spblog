@@ -235,10 +235,14 @@ class Content extends PrivCtl
 
     public function fetchmd(Request $request)
     {
-        $res = (new \app\Common\model\content())->Rc(
-            $this->uid,
-            HttpTools::SafeStrGet($request,"cid")
-        )->toArray();
+        $res = (new \app\Common\model\content())->where_arr(
+            [
+                [
+                    $this->uid,
+                    HttpTools::SafeStrGet($request,"cid")
+                ]
+            ]
+        )->select()->toArray();
         $ct = Arrtools::getdef($res,0,[]);
         return Arrtools::getdef($ct,"content","# NO ITEM");
     }
