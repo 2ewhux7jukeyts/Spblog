@@ -43,7 +43,7 @@ class Indexform extends Controller
                             Layui::reload($cid)
                             ,Layui::layeropen2(
                                 "obj.id==='add'",
-                                "/index/form/addcomment?cid=$cid",
+                                "/viewc/indexform/addcomment?cid=$cid",
                                 "add comment"
                             ),""],
                         "data"=>json_encode([
