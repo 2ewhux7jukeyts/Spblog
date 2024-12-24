@@ -92,9 +92,10 @@ class Layui
             
             if(obj.event === 'del'){
                 layer.confirm('DELETE? [comid: '+ data.comid +']  ', function(index){
-                    obj.del(); // DEL DOM TR
+                    // DEL DOM TR
                     // layer.close(index);
                     delcomment(data.comid)
+                    obj.del(); 
                 });
             }
         ";

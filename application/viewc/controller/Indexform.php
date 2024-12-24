@@ -34,7 +34,7 @@ class Indexform extends Controller
                 function delcomment(comid){
                     $.ajax({
                         url:'/index/Commctl/D',
-                        data:{'comid':name},
+                        data:{'comid':comid},
                         type:'post',
                         success:function(data){
                             console.log(data);
