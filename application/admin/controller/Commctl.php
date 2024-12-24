@@ -17,7 +17,6 @@ class Commctl extends PrivCtl{
 
     public function L_R(Request $request){
         $uid = urlencode($this->uid);
-        $pcid = urlencode(HttpTools::SafeStrGet($request,"pcid"));
         return Json::create((new \app\Common\model\content())->queryfieldtablejoin(
             ["commont.uid","user.uname","commont.cid","commont.pcid","commont.content","commont.comid","commont.c_time","commont.l_time"],
             "commont",
