@@ -94,7 +94,7 @@ class Layui
                 layer.confirm('DELETE? [comid: '+ data.comid +']  ', function(index){
                     obj.del(); // DEL DOM TR
                     // layer.close(index);
-                    delpage(data.comid)
+                    delcomment(data.comid)
                 });
             }
         ";

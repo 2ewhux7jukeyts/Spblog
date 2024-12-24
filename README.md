@@ -109,5 +109,8 @@ review and rebuild code
 rewrite frontend webpage using vue3 
 
 # NEWS 
-20 12 2024 move index page to viewc , seperate view render and api in to diffrent module
+20 12 2024 move index page to viewc , seperate view render and api in to diffrent module 
+
 23 12 2024 move index page to viewc , add top back view to comment section store comments using tree struct
+
+24 12 2024 add del comment impl

@@ -31,7 +31,24 @@ class Indexform extends Controller
                 "col"=>"/index/commctl/tablecol",
                 "preloadin" => "
                 var backlist = [];
-
+                function delcomment(comid){
+                    $.ajax({
+                        url:'/index/Commctl/D',
+                        data:{'comid':name},
+                        type:'post',
+                        success:function(data){
+                            console.log(data);
+                            layer.alert(JSON.stringify(data), {
+                                title: data
+                            });
+                        },
+                        error:function(data){
+                            layer.alert(JSON.stringify(data), {
+                                title: data
+                            });
+                        }
+                    });
+                }
                 ",
                 "p_toolbarDemo"=>[
                     [
