@@ -1,4 +1,10 @@
 # THIS IS Spblog V0.1
+
+# func support
+post blog curd
+user manager
+comment curd reply
+
 # install
 ### 1 setup db
 download lampp for php **`7.4`**
@@ -106,6 +112,8 @@ update install.php
 
 # Plan
 review and rebuild code 
+rss api comming soon
+acl + rbac role manager coming soon
 rewrite frontend webpage using vue3 
 
 # NEWS 
