@@ -37,15 +37,30 @@ class Layui
         ";
     }
 
+    public static function postup(){
+        return "
+        if(obj.event==='view'){
+            backcontent.push(obj.data.content)
+            $('#preview').val(obj.data.content)
+        }
+        
+        ";
+    }
+
     public static function backview($cid){
         return "
         if(obj.event==='back'){
+            $('#preview').val(backcontent[backcontent.length-2]+'-'+backcontent.pop())
+            
             if(backlist.length > 1){
                 backlist.pop()
+                
                 load('/index/commctl/F_R?cid=$cid&comid='+backlist[backlist.length-1])
 
             }else{
                 backlist = [];
+                backcontent = []
+                poped = true;
                 load('/index/commctl/F_R?cid=$cid')
             }
             

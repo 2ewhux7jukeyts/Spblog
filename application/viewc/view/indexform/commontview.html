@@ -4,6 +4,8 @@
 {include file="common/head" /}
   <body>
 
+    {$preloadin1 ?? ""}
+
     <script>
         {$preloadin ?? ""}
     </script>
@@ -64,6 +66,8 @@
             {/volist}
         </div>
     </script> 
+
+    <?php echo $preloadin2;?>
 
     <script>
       function load(api){

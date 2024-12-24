@@ -29,8 +29,12 @@ class Indexform extends Controller
             [
                 "api"=>"/index/commctl/F_R?cid=$cid",
                 "col"=>"/index/commctl/tablecol",
+                "preloadin2"=>"
+                    <textarea id='preview' style='border-style:none;border:none;'></textarea>
+                ",
                 "preloadin" => "
                 var backlist = [];
+                var backcontent = [];
                 function delcomment(comid){
                     $.ajax({
                         url:'/index/Commctl/D',
@@ -49,6 +53,7 @@ class Indexform extends Controller
                         }
                     });
                 }
+                
                 ",
                 "p_toolbarDemo"=>[
                     [
@@ -95,7 +100,10 @@ class Indexform extends Controller
                         "name"=>"view",
                         "event"=>"view",
                         "id"=>"view",
-                        "funcs"=>[Layui::view($cid)],
+                        "funcs"=>[
+                            Layui::view($cid),
+                            Layui::postup()
+                        ],
                         "data"=>json_encode([])
                     ]
                     ,
