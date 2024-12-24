@@ -232,4 +232,14 @@ class Content extends PrivCtl
             )->select()
         );
     }
+
+    public function fetchmd(Request $request)
+    {
+        $res = (new \app\Common\model\content())->Rc(
+            $this->uid,
+            HttpTools::SafeStrGet($request,"cid")
+        )->toArray();
+        $ct = Arrtools::getdef($res,0,[]);
+        return Arrtools::getdef($ct,"content","# NO ITEM");
+    }
 }
