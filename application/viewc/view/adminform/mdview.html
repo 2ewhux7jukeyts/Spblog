@@ -53,7 +53,7 @@
     $(function() {
         var testEditormdView, testEditormdView2;
 
-        $.get("/viewc/adminform/fetchmd?cid={$cid}", function(markdown) {
+        $.get("/admin/content/fetchmd?cid={$cid}", function(markdown) {
 
             testEditormdView = editormd.markdownToHTML("test-editormd-view", {
                 markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
