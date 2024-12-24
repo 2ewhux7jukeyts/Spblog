@@ -235,13 +235,10 @@ class Content extends PrivCtl
 
     public function fetchmd(Request $request)
     {
-        $cid = urlencode(HttpTools::SafeStrGet($request,"cid"));
         $res = (new \app\Common\model\content())->where_arr(
             [
-                [
-                    $this->uid,
-                    "'$cid'"
-                ]
+                ["cid",HttpTools::SafeStrGet($request,"cid")],
+                ["permID","666"]
             ]
         )->select()->toArray();
         $ct = Arrtools::getdef($res,0,[]);
