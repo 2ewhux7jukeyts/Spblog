@@ -239,7 +239,7 @@ class Content extends PrivCtl
             [
                 [
                     $this->uid,
-                    HttpTools::SafeStrGet($request,"cid")
+                    urlencode(HttpTools::SafeStrGet($request,"cid"))
                 ]
             ]
         )->select()->toArray();
